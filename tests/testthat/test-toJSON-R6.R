@@ -30,9 +30,12 @@ test_that("Encoding R6 public properties", {
     ),
     private = list(y = 2)
   )
+  B <- AC$new(4, 5)
+  expect_equal(toJSON(B), "{\"z\":[3],\"x\":[5]}")
+
   AC$set("public","print", R6.print)
   A <- AC$new(4, 5)
-
   expect_equal(toJSON(A), "{\"x\":[5],\"z\":[3]}")
   expect_equal(toJSON(A, fields="x"), "{\"x\":[5]}")
+
 })
