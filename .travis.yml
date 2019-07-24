@@ -1,5 +1,6 @@
 language: r
-cache: packages
+fortran: false
+latex: false
 
 matrix:
   include:
@@ -14,7 +15,6 @@ matrix:
       env: R_CODECOV=true
       r_check_args: '--use-valgrind'
     - os: osx
-      osx_image: xcode8.3
       brew_packages: yajl # only to test for conflicts
 
 addons:
@@ -31,9 +31,6 @@ notifications:
   email:
     on_success: change
     on_failure: change
-
-before_install:
-  - if [ "${TRAVIS_OS_NAME}" == "osx" ]; then sudo tlmgr install preprint; fi
 
 after_success:
   - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
