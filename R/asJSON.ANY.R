@@ -15,13 +15,9 @@ setMethod("asJSON", "ANY", function(x, cody = FALSE, ...) {
     }, USE.NAMES = F)
     methods.found = methods.found[!is.na(methods.found)]
 
-    if(length(methods.found) > 0) {
-      m = getMethod(asJSON, signature = methods.found[1])
-      res = m@.Data(x, force = force, ...)
-      return(res)
-    } else {
-      return(asJSON(structure(x, class = class(x)[-1]), force = force, ...))
-    }
+    m = getMethod(asJSON, signature = methods.found[1])
+    res = m@.Data(x, force = force, ...)
+    return(res)
   } else if (isTRUE(force) && existsMethod("asJSON", class(unclass(x)))) {
     # As a last resort we can force encoding using the unclassed object
     return(asJSON(unclass(x), force = force, ...))
