@@ -16,6 +16,8 @@ R6.print <- function(...) {
 }
 
 test_that("Encoding R6 public properties", {
+  library(R6)
+
   ## Example R6 class:
   ##  > https://github.com/wch/R6/blob/master/tests/testthat/test-portable.R
   AC = R6Class("AC",
@@ -31,11 +33,12 @@ test_that("Encoding R6 public properties", {
     private = list(y = 2)
   )
   B <- AC$new(4, 5)
-  expect_equal(toJSON(B), "{\"z\":[3],\"x\":[5]}")
+  expect_equal(toJSON1(B), "{\"z\":[3],\"x\":[5]}")
 
   AC$set("public","print", R6.print)
   A <- AC$new(4, 5)
-  expect_equal(toJSON(A), "{\"x\":[5],\"z\":[3]}")
-  expect_equal(toJSON(A, fields="x"), "{\"x\":[5]}")
+
+  expect_equal(toJSON1(A), "{\"x\":[5],\"z\":[3]}")
+  expect_equal(toJSON1(A, fields="x"), "{\"x\":[5]}")
 
 })

@@ -21,7 +21,7 @@ test_that("test that non ascii characters are ok", {
 
   lapply(objects, function(x){
     #Encoding(x) <- "UTF-8"
-    myjson <- toJSON(x, pretty=TRUE);
+    myjson <- toJSON1(x, pretty=TRUE);
     expect_that(validate(myjson), is_true());
     expect_that(fromJSON(myjson), equals(x));
 
@@ -45,4 +45,4 @@ test_that("test that non ascii characters are ok", {
   expect_that(fromJSON('["\\u586B"]'), equals("\u586b"));
   expect_that(fromJSON(prettify('["\\u586B"]')), equals("\u586B"));
 
-});
+})
